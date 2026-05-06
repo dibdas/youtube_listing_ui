@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ThumbsDown } from 'lucide-react';
 type VideoThumbnail = {
   url: string;
   width?: number;
@@ -8,6 +9,7 @@ interface VideoSnippet {
   title: string;
   channelTitle: string;
    description:string;
+   publishedAt:string;
   thumbnails: {
    default: VideoThumbnail;
     medium?: VideoThumbnail;
@@ -122,6 +124,9 @@ function YoutubeListings() {
                     <button className="bg-gray-100 px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200">
                       👍 {selectedVideo.items.statistics.likeCount}
                     </button>
+                    <button className="bg-gray-100 px-4 py-2 rounded-full font-medium text-sm hover:bg-gray-200">
+                       <ThumbsDown size={20} color="#4dffe1" />
+                    </button>
                     <button className="bg-black text-white px-6 py-2 rounded-full font-medium text-sm">
                       Subscribe
                     </button>
@@ -130,8 +135,9 @@ function YoutubeListings() {
 
               <div className="mt-6 bg-gray-100 p-4 rounded-xl">
                 <p className="font-bold text-sm mb-1">{selectedVideo.items.statistics.viewCount} views</p>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                    This video has {selectedVideo.items.statistics.viewCount}views {selectedVideo.items.statistics.commentCount} comments. 
+                <p className="text-sm text-gray-700 leading-relaxed text-black">
+                     <strong>{new Date(selectedVideo.items.snippet.publishedAt).toLocaleString()}</strong> This video has {selectedVideo.items.statistics.viewCount}views {selectedVideo.items.statistics.commentCount} comments.
+                  
                     The description and more details from {selectedVideo.items.snippet.description} would appear here.
                 </p>
               </div>
